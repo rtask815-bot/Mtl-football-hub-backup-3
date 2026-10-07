@@ -236,6 +236,7 @@ export default function GroupChats() {
     const cached = LocalStore.get('groups');
     return !Array.isArray(cached) || cached.length === 0;
   });
+  const [isChatLoading, setIsChatLoading] = useState(false);
 
   // Messages & Input
   const [messages, setMessages] = useState<any[]>([]);
@@ -1059,13 +1060,14 @@ export default function GroupChats() {
     setCurrentOpenDirectPeer(null);
     setChatTypeMode('groups');
 
-    // Instant local cache display
+    // Instant local cache display from LocalStorage
     const cached = LocalStore.get('messages_' + groupId);
-    if (cached && Array.isArray(cached)) {
+    if (cached && Array.isArray(cached) && cached.length > 0) {
       setMessages(cached);
       scrollToBottom();
     } else {
       setMessages([]);
+      setIsChatLoading(true);
     }
 
     setUnreadCounts(prev => {
@@ -1088,11 +1090,12 @@ export default function GroupChats() {
     if (currentUser) {
       const cacheKey = 'messages_direct_' + [currentUser.id, peerUser.id].sort().join('_');
       const cached = LocalStore.get(cacheKey);
-      if (cached && Array.isArray(cached)) {
+      if (cached && Array.isArray(cached) && cached.length > 0) {
         setMessages(cached);
         scrollToBottom();
       } else {
         setMessages([]);
+        setIsChatLoading(true);
       }
     }
 
@@ -1110,9 +1113,11 @@ export default function GroupChats() {
 
   async function fetchGroupMessages(groupId: string) {
     const cached = LocalStore.get('messages_' + groupId);
-    if (cached && Array.isArray(cached)) {
+    if (cached && Array.isArray(cached) && cached.length > 0) {
       setMessages(cached);
       scrollToBottom();
+    } else {
+      setIsChatLoading(true);
     }
 
     try {
@@ -1125,19 +1130,38 @@ export default function GroupChats() {
       if (!error && data) {
         const enriched = await enrichMessagesWithProfiles(data);
         setMessages(enriched);
+        
+        // Store loaded group messages in LocalStorage
         LocalStore.set('messages_' + groupId, enriched);
+
+        // Store chat in central local cache
+        const cachedChatsIndex = LocalStore.get('cached_chats_index') || {};
+        cachedChatsIndex['group_' + groupId] = {
+          id: groupId,
+          type: 'group',
+          name: groupsData.find(g => g.id === groupId)?.name || 'Group',
+          messageCount: enriched.length,
+          lastUpdated: new Date().toISOString()
+        };
+        LocalStore.set('cached_chats_index', cachedChatsIndex);
+
         scrollToBottom();
       }
-    } catch (e) {}
+    } catch (e) {
+    } finally {
+      setIsChatLoading(false);
+    }
   }
 
   async function fetchDirectMessages(peerId: string) {
     if (!currentUser) return;
     const cacheKey = 'messages_direct_' + [currentUser.id, peerId].sort().join('_');
     const cached = LocalStore.get(cacheKey);
-    if (cached && Array.isArray(cached)) {
+    if (cached && Array.isArray(cached) && cached.length > 0) {
       setMessages(cached);
       scrollToBottom();
+    } else {
+      setIsChatLoading(true);
     }
 
     try {
@@ -1150,10 +1174,27 @@ export default function GroupChats() {
       if (!error && data) {
         const enriched = await enrichMessagesWithProfiles(data);
         setMessages(enriched);
+
+        // Store loaded direct messages in LocalStorage
         LocalStore.set(cacheKey, enriched);
+
+        // Store chat in central local cache
+        const cachedChatsIndex = LocalStore.get('cached_chats_index') || {};
+        cachedChatsIndex['direct_' + cacheKey] = {
+          id: cacheKey,
+          type: 'direct',
+          peerId,
+          messageCount: enriched.length,
+          lastUpdated: new Date().toISOString()
+        };
+        LocalStore.set('cached_chats_index', cachedChatsIndex);
+
         scrollToBottom();
       }
-    } catch (e) {}
+    } catch (e) {
+    } finally {
+      setIsChatLoading(false);
+    }
   }
 
   async function fetchGroupAboutMembers(groupId: string) {
@@ -1764,7 +1805,7 @@ export default function GroupChats() {
       </header>
 
       {/* MOBILE SECONDARY TAB BAR */}
-      <div className="md:hidden flex items-center justify-around bg-[#070e1a] border-b border-slate-800/80 px-2 py-2 sticky top-16 z-20">
+      <div className="md:hidden flex items-center justify-around bg-[#070e1a] border-b border-slate-800/80 px-2 py-2 sticky top-32 z-20">
         <button
           onClick={() => setActiveMainView('chats')}
           className={`flex-1 py-1.5 text-center text-xs font-bold font-['Orbitron'] border-b-2 transition-all cursor-pointer ${
@@ -2135,8 +2176,8 @@ export default function GroupChats() {
 
       {/* CHAT ROOM MODAL (AUTHENTIC WHATSAPP CONTAINER WITH WALLPAPERS, CALLS, SEARCH, PINNING) */}
       {modals.chatRoomModal && (currentOpenGroup || currentOpenDirectPeer) && (
-        <div className="fixed inset-0 top-16 z-[110] bg-black/80 backdrop-blur-md flex items-center justify-center p-0 sm:p-2 animate-in fade-in duration-200">
-          <div className="bg-[#0b141a] border border-[#202c33] rounded-none sm:rounded-3xl w-full max-w-4xl h-[calc(100vh-4rem)] flex flex-col overflow-hidden shadow-2xl relative">
+        <div className="fixed inset-0 top-16 z-[110] bg-black/85 backdrop-blur-md flex items-center justify-center p-0 sm:pt-0 sm:px-2 sm:pb-2 animate-in fade-in duration-200">
+          <div className="bg-[#0b141a] border border-[#202c33] rounded-none sm:rounded-2xl w-full max-w-4xl h-[calc(100vh-4rem)] flex flex-col overflow-hidden shadow-2xl relative">
             
             {/* Header: Authentic WhatsApp Dark Style Top Bar */}
             <div className="h-16 px-4 sm:px-5 bg-[#111b21] border-b border-[#202c33] flex items-center justify-between shrink-0 shadow-md z-20">
@@ -2284,7 +2325,18 @@ export default function GroupChats() {
               ref={chatMessagesAreaRef} 
               className={`flex-1 overflow-y-auto p-4 sm:p-5 space-y-2 wallpaper-${activeWallpaper} relative`}
             >
-              {(() => {
+              {isChatLoading ? (
+                <div className="h-full min-h-[350px] flex flex-col items-center justify-center text-slate-300 space-y-3 py-12">
+                  <div className="relative w-12 h-12 flex items-center justify-center">
+                    <div className="w-12 h-12 border-4 border-emerald-500/20 border-t-emerald-400 rounded-full animate-spin" />
+                    <MessageSquare className="w-5 h-5 text-emerald-400 absolute animate-pulse" />
+                  </div>
+                  <p className="text-xs font-extrabold tracking-wider text-emerald-400 animate-pulse font-['Orbitron']">
+                    LOADING CHAT MESSAGES...
+                  </p>
+                  <p className="text-[11px] text-slate-400 font-mono">Fetching encrypted discussion history</p>
+                </div>
+              ) : (() => {
                 lastDateDivider = '';
                 const filteredMsgs = searchInChatQuery
                   ? messages.filter(m => (m.content || '').toLowerCase().includes(searchInChatQuery.toLowerCase()))
@@ -2292,9 +2344,9 @@ export default function GroupChats() {
 
                 if (filteredMsgs.length === 0) {
                   return (
-                    <div className="h-full flex flex-col items-center justify-center text-slate-400 space-y-2">
+                    <div className="h-full min-h-[300px] flex flex-col items-center justify-center text-slate-400 space-y-2">
                       <MessageSquare className="w-10 h-10 text-slate-600 animate-pulse" />
-                      <p className="text-xs">
+                      <p className="text-xs font-semibold text-slate-300">
                         {searchInChatQuery ? 'No messages match search query.' : 'No messages in this channel yet. Start the conversation!'}
                       </p>
                     </div>
