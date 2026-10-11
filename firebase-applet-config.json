@@ -1,12 +1,11 @@
 {
-  "projectId": "gen-lang-client-0966768592",
-  "appId": "1:967821311682:web:31b7d465bfaed13439855b",
-  "apiKey": "AIzaSyB_sEGNQpii0QS5-3VDYJMHmrKGJtHQPjw",
-  "authDomain": "gen-lang-client-0966768592.firebaseapp.com",
-  "firestoreDatabaseId": "ai-studio-mtlfootballhub-45a202df-980c-4812-b3f9-11b4ea65c7dd",
-  "storageBucket": "gen-lang-client-0966768592.firebasestorage.app",
-  "messagingSenderId": "967821311682",
+  "projectId": "gen-lang-client-0651258279",
+  "appId": "1:900891465893:web:7027b3601886a9a5c9d54c",
+  "apiKey": "AIzaSyBjN1NVt0tRFSEIgQpzgAb-Vl1IBi57dhQ",
+  "authDomain": "gen-lang-client-0651258279.firebaseapp.com",
+  "storageBucket": "gen-lang-client-0651258279.firebasestorage.app",
+  "messagingSenderId": "900891465893",
   "measurementId": "",
-  "oAuthClientId": "967821311682-19vlatshpd4stblu0hnb9bf345q3djqp.apps.googleusercontent.com",
+  "oAuthClientId": "900891465893-h0ktgd1h27pq8g2g8vbd08puim6j13rj.apps.googleusercontent.com",
   "recaptchaSiteKey": ""
 }
