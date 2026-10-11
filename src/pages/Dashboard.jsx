@@ -13,6 +13,15 @@ import DashboardFAB from '../components/DashboardFAB.tsx';
 import { PerformanceAnalyticsChart } from '../components/PerformanceAnalyticsChart.tsx';
 import StatusReel from '../components/StatusReel.tsx';
 import { fetchUserStatuses, subscribeUserStatuses, INITIAL_COMMUNITY_STATUSES, saveMatchReaction } from '../config/firebaseStore.ts';
+import { 
+  PhysicalCard, 
+  TactileButton, 
+  EmbossedIcon, 
+  EngravedPlaque, 
+  PhysicalOptionGrid,
+  MaterialPanel 
+} from '../components/physical/index.ts';
+import heroPhysicalShowcase from '../assets/images/hero_physical_showcase_1791684418843.jpg';
 
 export default function Dashboard() {
   const navigate = useNavigate();
@@ -1158,24 +1167,87 @@ export default function Dashboard() {
       {/* Main Dashboard Layout */}
       <div className="dashboard-wrapper">
         
-        {/* MATCH INTELLIGENCE BANNER */}
-        <section className="cyber-banner">
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <div>
-              <span style={{ fontSize: '11px', color: 'var(--green)', fontWeight: 800, letterSpacing: '1px' }}>● IMMEDIATE LANDING DASHBOARD</span>
-              <h2 style={{ fontSize: '22px', fontWeight: 800, marginTop: '4px' }}>Match Intelligence Hub</h2>
-              <p style={{ fontSize: '12px', color: 'var(--muted)', marginTop: '4px', maxWidth: '600px' }}>
-                Summary overview of top match predictions, upcoming fixture details, and real-time community discussions.
-              </p>
-            </div>
-            {isAdmin && (
-              <div style={{ display: 'flex', gap: '8px' }}>
-                <button className="btn-cyber" onClick={() => setAdminModalState({ open: true, section: 'matches', item: null })}>+ Match</button>
-                <button className="btn-cyber" onClick={() => setAdminModalState({ open: true, section: 'fixtures', item: null })}>+ Fixture</button>
-                <button className="btn-cyber" onClick={() => setAdminModalState({ open: true, section: 'trending', item: null })}>+ News</button>
+        {/* 3D PHYSICAL MATCH INTELLIGENCE SHOWCASE DECK */}
+        <section className="mb-6">
+          <PhysicalCard variant="carbon" withBolts={true} className="p-5 sm:p-6">
+            <div className="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-6">
+              
+              {/* Left Column: Engraved Title & Operational Specs */}
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="w-2 h-2 rounded-full bg-amber-400 shadow-[0_0_8px_#f59e0b]" />
+                  <span className="text-[11px] font-black tracking-widest text-amber-300 uppercase">
+                    MTL FOOTBALL INTELLIGENCE CHASSIS
+                  </span>
+                </div>
+                
+                <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-white mb-2">
+                  Match Intelligence Command
+                </h1>
+                
+                <p className="text-xs sm:text-sm text-slate-300 max-w-xl leading-relaxed mb-4">
+                  Precision manufactured odds calculations, real-time match fixtures, verified neural score predictions, and encrypted community fan rooms.
+                </p>
+
+                {/* Tactile Hardware Metric Badges */}
+                <div className="grid grid-cols-3 gap-2 max-w-md mb-4">
+                  <div className="p-2.5 rounded-xl bg-[#070b14] border border-[#1e293b] shadow-[inset_0_2px_4px_rgba(0,0,0,0.85)]">
+                    <div className="text-[10px] text-slate-400 uppercase font-semibold">Active Matches</div>
+                    <div className="text-sm sm:text-base font-extrabold text-white tabular-nums mt-0.5">
+                      {matchesData.length} LIVE/FIX
+                    </div>
+                  </div>
+                  <div className="p-2.5 rounded-xl bg-[#070b14] border border-[#1e293b] shadow-[inset_0_2px_4px_rgba(0,0,0,0.85)]">
+                    <div className="text-[10px] text-slate-400 uppercase font-semibold">Accuracy Ratio</div>
+                    <div className="text-sm sm:text-base font-extrabold text-amber-400 tabular-nums mt-0.5">
+                      87.4%
+                    </div>
+                  </div>
+                  <div className="p-2.5 rounded-xl bg-[#070b14] border border-[#1e293b] shadow-[inset_0_2px_4px_rgba(0,0,0,0.85)]">
+                    <div className="text-[10px] text-slate-400 uppercase font-semibold">Status Broadcast</div>
+                    <div className="text-sm sm:text-base font-extrabold text-emerald-400 tabular-nums mt-0.5">
+                      24H REEL
+                    </div>
+                  </div>
+                </div>
+
+                {/* Admin Physical Triggers */}
+                {isAdmin && (
+                  <div className="flex flex-wrap items-center gap-2 pt-2 border-t border-[#1e293b]">
+                    <TactileButton variant="emerald" size="sm" onClick={() => setAdminModalState({ open: true, section: 'matches', item: null })}>
+                      + Create Match
+                    </TactileButton>
+                    <TactileButton variant="gold" size="sm" onClick={() => setAdminModalState({ open: true, section: 'fixtures', item: null })}>
+                      + Add Fixture
+                    </TactileButton>
+                    <TactileButton variant="obsidian" size="sm" onClick={() => setAdminModalState({ open: true, section: 'trending', item: null })}>
+                      + Post Story
+                    </TactileButton>
+                  </div>
+                )}
               </div>
-            )}
-          </div>
+
+              {/* Right Column: Physical Manufactured Emblem Plaque Showcase */}
+              <div className="shrink-0 flex items-center justify-center">
+                <div className="relative rounded-2xl p-1 bg-gradient-to-b from-[#2a1d08] via-[#1a1205] to-[#070502] border-2 border-amber-500/50 shadow-[0_1px_1px_rgba(251,191,36,0.4)_inset,0_16px_40px_rgba(0,0,0,0.95)] max-w-[280px] sm:max-w-[320px] overflow-hidden group">
+                  <div className="pointer-events-none absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-transparent via-amber-300/40 to-transparent z-10" />
+                  
+                  <img 
+                    src={heroPhysicalShowcase} 
+                    alt="MTL Football Hub Physical Emblem" 
+                    className="w-full h-auto rounded-xl object-cover shadow-2xl transition-transform duration-500 group-hover:scale-[1.03]"
+                    referrerPolicy="no-referrer"
+                  />
+                  
+                  <div className="absolute bottom-2 inset-x-2 px-3 py-1.5 rounded-lg bg-[#070b14]/85 backdrop-blur-md border border-[#334155]/60 flex items-center justify-between text-[11px] font-bold text-amber-200">
+                    <span className="tracking-wider uppercase">MTL PHYSICAL CREST</span>
+                    <span className="text-[10px] text-amber-400 font-mono">EST. 2026</span>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </PhysicalCard>
         </section>
 
         {/* WHATSAPP-STYLE MATCH PREDICTION STATUS REEL */}
@@ -1197,198 +1269,232 @@ export default function Dashboard() {
           onAction={() => navigateTo('tv')}
         />
 
-        {/* ALL AVAILABLE PAGES NAVIGATION HUB GRID */}
-        <div className="hub-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(180px, 1fr))', gap: '14px', marginBottom: '28px' }}>
+        {/* ALL AVAILABLE PAGES NAVIGATION HUB GRID - PHYSICAL TACTILE TILES */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 mb-8">
           {/* User Profile & Status */}
-          <div className="hub-card" onClick={() => navigate('/profile')}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%', alignItems: 'center' }}>
-              <svg className="card-icon-svg" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-              </svg>
-              <span style={{ fontSize: '9px', fontWeight: 800, padding: '2px 6px', borderRadius: '4px', background: 'rgba(16, 185, 129, 0.15)', color: '#34d399', border: '1px solid rgba(16, 185, 129, 0.3)' }}>PROFILE</span>
+          <PhysicalCard variant="obsidian" interactive={true} onClick={() => navigate('/profile')} className="p-3.5 flex flex-col justify-between">
+            <div className="flex items-center justify-between w-full mb-3">
+              <EmbossedIcon mount="badge" size="sm" icon={
+                <svg className="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                </svg>
+              } />
+              <span className="text-[9px] font-extrabold px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 shadow-inner">
+                PROFILE
+              </span>
             </div>
             <div>
-              <div className="title">User Profile & Status</div>
-              <div className="sub">Bio, clubs & match card status</div>
+              <div className="text-xs font-bold text-white">Profile & Status</div>
+              <div className="text-[10px] text-slate-400 mt-0.5 line-clamp-1">Bio & match reels</div>
             </div>
-          </div>
+          </PhysicalCard>
 
           {/* 1. Match Predictions */}
-          <div className="hub-card" onClick={() => navigateTo('predictions')}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%', alignItems: 'center' }}>
-              <svg className="card-icon-svg" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
-                <circle cx="12" cy="12" r="10" />
-                <circle cx="12" cy="12" r="6" />
-                <circle cx="12" cy="12" r="2" />
-              </svg>
-              <span style={{ fontSize: '9px', fontWeight: 800, padding: '2px 6px', borderRadius: '4px', background: 'rgba(16, 185, 129, 0.15)', color: '#34d399', border: '1px solid rgba(16, 185, 129, 0.3)' }}>ODDS</span>
+          <PhysicalCard variant="obsidian" interactive={true} onClick={() => navigateTo('predictions')} className="p-3.5 flex flex-col justify-between">
+            <div className="flex items-center justify-between w-full mb-3">
+              <EmbossedIcon mount="gold" size="sm" icon={
+                <svg className="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
+                  <circle cx="12" cy="12" r="10" />
+                  <circle cx="12" cy="12" r="6" />
+                  <circle cx="12" cy="12" r="2" />
+                </svg>
+              } />
+              <span className="text-[9px] font-extrabold px-1.5 py-0.5 rounded bg-amber-500/10 text-amber-300 border border-amber-500/30 shadow-inner">
+                ODDS
+              </span>
             </div>
             <div>
-              <div className="title">Match Predictions</div>
-              <div className="sub">Full odds & insights</div>
+              <div className="text-xs font-bold text-white">Predictions</div>
+              <div className="text-[10px] text-slate-400 mt-0.5 line-clamp-1">Full odds & insights</div>
             </div>
-          </div>
+          </PhysicalCard>
 
           {/* 2. Other Apps */}
-          <div className="hub-card" onClick={() => navigateTo('clubs')}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%', alignItems: 'center' }}>
-              <svg className="card-icon-svg" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
-                <rect x="3" y="3" width="7" height="7" rx="1.5" />
-                <rect x="14" y="3" width="7" height="7" rx="1.5" />
-                <rect x="14" y="14" width="7" height="7" rx="1.5" />
-                <rect x="3" y="14" width="7" height="7" rx="1.5" />
-              </svg>
-              <span style={{ fontSize: '9px', fontWeight: 800, padding: '2px 6px', borderRadius: '4px', background: 'rgba(52, 211, 153, 0.15)', color: '#34d399', border: '1px solid rgba(52, 211, 153, 0.3)' }}>PORTALS</span>
+          <PhysicalCard variant="obsidian" interactive={true} onClick={() => navigateTo('clubs')} className="p-3.5 flex flex-col justify-between">
+            <div className="flex items-center justify-between w-full mb-3">
+              <EmbossedIcon mount="badge" size="sm" icon={
+                <svg className="w-4 h-4 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
+                  <rect x="3" y="3" width="7" height="7" rx="1.5" />
+                  <rect x="14" y="3" width="7" height="7" rx="1.5" />
+                  <rect x="14" y="14" width="7" height="7" rx="1.5" />
+                  <rect x="3" y="14" width="7" height="7" rx="1.5" />
+                </svg>
+              } />
+              <span className="text-[9px] font-extrabold px-1.5 py-0.5 rounded bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 shadow-inner">
+                PORTALS
+              </span>
             </div>
             <div>
-              <div className="title">Other Apps</div>
-              <div className="sub">Betting, predictions & virtuals</div>
+              <div className="text-xs font-bold text-white">Other Apps</div>
+              <div className="text-[10px] text-slate-400 mt-0.5 line-clamp-1">Betting & virtuals</div>
             </div>
-          </div>
+          </PhysicalCard>
 
-          {/* 2. AI Predictions */}
-          <div className="hub-card" onClick={() => navigateTo('ai-predictions')}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%', alignItems: 'center' }}>
-              <svg className="card-icon-svg" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-              </svg>
-              <span style={{ fontSize: '9px', fontWeight: 800, padding: '2px 6px', borderRadius: '4px', background: 'rgba(56, 189, 248, 0.15)', color: '#38bdf8', border: '1px solid rgba(56, 189, 248, 0.3)' }}>AI MODEL</span>
+          {/* 3. AI Predictions */}
+          <PhysicalCard variant="obsidian" interactive={true} onClick={() => navigateTo('ai-predictions')} className="p-3.5 flex flex-col justify-between">
+            <div className="flex items-center justify-between w-full mb-3">
+              <EmbossedIcon mount="badge" size="sm" icon={
+                <svg className="w-4 h-4 text-sky-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
+              } />
+              <span className="text-[9px] font-extrabold px-1.5 py-0.5 rounded bg-sky-500/10 text-sky-400 border border-sky-500/30 shadow-inner">
+                AI MODEL
+              </span>
             </div>
             <div>
-              <div className="title">AI Predictions</div>
-              <div className="sub">Neural win-rate models</div>
+              <div className="text-xs font-bold text-white">AI Predictions</div>
+              <div className="text-[10px] text-slate-400 mt-0.5 line-clamp-1">Neural win-rates</div>
             </div>
-          </div>
+          </PhysicalCard>
 
-          {/* 3. Live TV */}
-          <div className="hub-card" onClick={() => navigateTo('tv')}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%', alignItems: 'center' }}>
-              <svg className="card-icon-svg" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
-              </svg>
-              <span style={{ fontSize: '9px', fontWeight: 800, padding: '2px 6px', borderRadius: '4px', background: 'rgba(239, 68, 68, 0.2)', color: '#f87171', border: '1px solid rgba(239, 68, 68, 0.4)' }}>LIVE</span>
+          {/* 4. Live TV */}
+          <PhysicalCard variant="obsidian" interactive={true} onClick={() => navigateTo('tv')} className="p-3.5 flex flex-col justify-between">
+            <div className="flex items-center justify-between w-full mb-3">
+              <EmbossedIcon mount="badge" size="sm" icon={
+                <svg className="w-4 h-4 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
+                </svg>
+              } />
+              <span className="text-[9px] font-extrabold px-1.5 py-0.5 rounded bg-red-500/10 text-red-400 border border-red-500/30 shadow-inner">
+                LIVE
+              </span>
             </div>
             <div>
-              <div className="title">LIVE TV</div>
-              <div className="sub">Watch live streams</div>
+              <div className="text-xs font-bold text-white">LIVE TV</div>
+              <div className="text-[10px] text-slate-400 mt-0.5 line-clamp-1">Sports streams</div>
             </div>
-          </div>
+          </PhysicalCard>
 
-          {/* 4. Fixtures Grid */}
-          <div className="hub-card" onClick={() => navigateTo('fixtures')}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%', alignItems: 'center' }}>
-              <svg className="card-icon-svg" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
-                <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
-                <line x1="16" y1="2" x2="16" y2="6" />
-                <line x1="8" y1="2" x2="8" y2="6" />
-                <line x1="3" y1="10" x2="21" y2="10" />
-              </svg>
-              <span style={{ fontSize: '9px', fontWeight: 800, padding: '2px 6px', borderRadius: '4px', background: 'rgba(16, 185, 129, 0.15)', color: '#34d399', border: '1px solid rgba(16, 185, 129, 0.3)' }}>CALENDAR</span>
+          {/* 5. Fixtures Grid */}
+          <PhysicalCard variant="obsidian" interactive={true} onClick={() => navigateTo('fixtures')} className="p-3.5 flex flex-col justify-between">
+            <div className="flex items-center justify-between w-full mb-3">
+              <EmbossedIcon mount="badge" size="sm" icon={
+                <svg className="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
+                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                  <line x1="16" y1="2" x2="16" y2="6" />
+                  <line x1="8" y1="2" x2="8" y2="6" />
+                  <line x1="3" y1="10" x2="21" y2="10" />
+                </svg>
+              } />
+              <span className="text-[9px] font-extrabold px-1.5 py-0.5 rounded bg-amber-500/10 text-amber-300 border border-amber-500/30 shadow-inner">
+                CALENDAR
+              </span>
             </div>
             <div>
-              <div className="title">Fixtures & Tables</div>
-              <div className="sub">Schedules & kickoffs</div>
+              <div className="text-xs font-bold text-white">Fixtures</div>
+              <div className="text-[10px] text-slate-400 mt-0.5 line-clamp-1">Schedules & times</div>
             </div>
-          </div>
+          </PhysicalCard>
 
-          {/* 5. Group Chats */}
-          <div className="hub-card" onClick={() => navigateTo('group-chats')}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%', alignItems: 'center' }}>
-              <svg className="card-icon-svg" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z" />
-              </svg>
-              <span style={{ fontSize: '9px', fontWeight: 800, padding: '2px 6px', borderRadius: '4px', background: 'rgba(45, 212, 191, 0.15)', color: '#2dd4bf', border: '1px solid rgba(45, 212, 191, 0.3)' }}>CHAT</span>
+          {/* 6. Group Chats */}
+          <PhysicalCard variant="obsidian" interactive={true} onClick={() => navigateTo('group-chats')} className="p-3.5 flex flex-col justify-between">
+            <div className="flex items-center justify-between w-full mb-3">
+              <EmbossedIcon mount="badge" size="sm" icon={
+                <svg className="w-4 h-4 text-teal-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z" />
+                </svg>
+              } />
+              <span className="text-[9px] font-extrabold px-1.5 py-0.5 rounded bg-teal-500/10 text-teal-400 border border-teal-500/30 shadow-inner">
+                CHAT
+              </span>
             </div>
             <div>
-              <div className="title">Group Chats</div>
-              <div className="sub">Join fan communities</div>
+              <div className="text-xs font-bold text-white">Discussions</div>
+              <div className="text-[10px] text-slate-400 mt-0.5 line-clamp-1">Fan communities</div>
             </div>
-          </div>
+          </PhysicalCard>
 
-          {/* 6. Direct Messages & News */}
-          <div className="hub-card" onClick={() => navigateTo('news')}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%', alignItems: 'center' }}>
-              <svg className="card-icon-svg" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
-              </svg>
-              <span style={{ fontSize: '9px', fontWeight: 800, padding: '2px 6px', borderRadius: '4px', background: 'rgba(251, 146, 60, 0.15)', color: '#fb923c', border: '1px solid rgba(251, 146, 60, 0.3)' }}>INTEL</span>
+          {/* 7. News & Feed */}
+          <PhysicalCard variant="obsidian" interactive={true} onClick={() => navigateTo('news')} className="p-3.5 flex flex-col justify-between">
+            <div className="flex items-center justify-between w-full mb-3">
+              <EmbossedIcon mount="badge" size="sm" icon={
+                <svg className="w-4 h-4 text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
+                </svg>
+              } />
+              <span className="text-[9px] font-extrabold px-1.5 py-0.5 rounded bg-orange-500/10 text-orange-400 border border-orange-500/30 shadow-inner">
+                INTEL
+              </span>
             </div>
             <div>
-              <div className="title">News & Direct Feed</div>
-              <div className="sub">Direct chat & news</div>
+              <div className="text-xs font-bold text-white">News & Feed</div>
+              <div className="text-[10px] text-slate-400 mt-0.5 line-clamp-1">Transfers & feed</div>
             </div>
-          </div>
+          </PhysicalCard>
 
-          {/* 7. Past Predictions Archive */}
-          <div className="hub-card" onClick={() => navigateTo('past-predictions')}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%', alignItems: 'center' }}>
-              <svg className="card-icon-svg" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-              <span style={{ fontSize: '9px', fontWeight: 800, padding: '2px 6px', borderRadius: '4px', background: 'rgba(168, 85, 247, 0.15)', color: '#c084fc', border: '1px solid rgba(168, 85, 247, 0.3)' }}>HISTORY</span>
+          {/* 8. Past Predictions */}
+          <PhysicalCard variant="obsidian" interactive={true} onClick={() => navigateTo('past-predictions')} className="p-3.5 flex flex-col justify-between">
+            <div className="flex items-center justify-between w-full mb-3">
+              <EmbossedIcon mount="badge" size="sm" icon={
+                <svg className="w-4 h-4 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              } />
+              <span className="text-[9px] font-extrabold px-1.5 py-0.5 rounded bg-purple-500/10 text-purple-400 border border-purple-500/30 shadow-inner">
+                HISTORY
+              </span>
             </div>
             <div>
-              <div className="title">Past Predictions</div>
-              <div className="sub">Historical match records</div>
+              <div className="text-xs font-bold text-white">Past Records</div>
+              <div className="text-[10px] text-slate-400 mt-0.5 line-clamp-1">Historical outcomes</div>
             </div>
-          </div>
+          </PhysicalCard>
 
-          {/* 8. Live In-Play Scores */}
-          <div className="hub-card" onClick={() => navigateTo('live')}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%', alignItems: 'center' }}>
-              <svg className="card-icon-svg" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
-              </svg>
-              <span style={{ fontSize: '9px', fontWeight: 800, padding: '2px 6px', borderRadius: '4px', background: 'rgba(234, 179, 8, 0.15)', color: '#facc15', border: '1px solid rgba(234, 179, 8, 0.3)' }}>IN-PLAY</span>
+          {/* 9. Live Matches */}
+          <PhysicalCard variant="obsidian" interactive={true} onClick={() => navigateTo('live')} className="p-3.5 flex flex-col justify-between">
+            <div className="flex items-center justify-between w-full mb-3">
+              <EmbossedIcon mount="badge" size="sm" icon={
+                <svg className="w-4 h-4 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
+              } />
+              <span className="text-[9px] font-extrabold px-1.5 py-0.5 rounded bg-yellow-500/10 text-yellow-400 border border-yellow-500/30 shadow-inner">
+                IN-PLAY
+              </span>
             </div>
             <div>
-              <div className="title">Live Matches</div>
-              <div className="sub">Real-time match scores</div>
+              <div className="text-xs font-bold text-white">Live Matches</div>
+              <div className="text-[10px] text-slate-400 mt-0.5 line-clamp-1">In-play football</div>
             </div>
-          </div>
+          </PhysicalCard>
 
-          {/* 9. Trending Discussions */}
-          <div className="hub-card" onClick={() => navigateTo('trending')}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%', alignItems: 'center' }}>
-              <svg className="card-icon-svg" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-              </svg>
-              <span style={{ fontSize: '9px', fontWeight: 800, padding: '2px 6px', borderRadius: '4px', background: 'rgba(244, 63, 94, 0.15)', color: '#fb7185', border: '1px solid rgba(244, 63, 94, 0.3)' }}>HOT</span>
+          {/* 10. Trending */}
+          <PhysicalCard variant="obsidian" interactive={true} onClick={() => navigateTo('trending')} className="p-3.5 flex flex-col justify-between">
+            <div className="flex items-center justify-between w-full mb-3">
+              <EmbossedIcon mount="badge" size="sm" icon={
+                <svg className="w-4 h-4 text-rose-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                </svg>
+              } />
+              <span className="text-[9px] font-extrabold px-1.5 py-0.5 rounded bg-rose-500/10 text-rose-400 border border-rose-500/30 shadow-inner">
+                HOT
+              </span>
             </div>
             <div>
-              <div className="title">Trending Topics</div>
-              <div className="sub">Viral debriefs & news</div>
+              <div className="text-xs font-bold text-white">Trending</div>
+              <div className="text-[10px] text-slate-400 mt-0.5 line-clamp-1">Debriefs & debates</div>
             </div>
-          </div>
+          </PhysicalCard>
 
-          {/* 11. Notifications */}
-          <div className="hub-card" onClick={() => navigateTo('notifications')}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%', alignItems: 'center' }}>
-              <svg className="card-icon-svg" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
-              </svg>
-              <span style={{ fontSize: '9px', fontWeight: 800, padding: '2px 6px', borderRadius: '4px', background: 'rgba(245, 158, 11, 0.15)', color: '#fbbf24', border: '1px solid rgba(245, 158, 11, 0.3)' }}>ALERTS</span>
+          {/* 11. Google Scout Search */}
+          <PhysicalCard variant="obsidian" interactive={true} onClick={() => setIsSearchOpen(true)} className="p-3.5 flex flex-col justify-between">
+            <div className="flex items-center justify-between w-full mb-3">
+              <EmbossedIcon mount="gold" size="sm" icon={
+                <svg className="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
+                  <circle cx="11" cy="11" r="8" />
+                  <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                </svg>
+              } />
+              <span className="text-[9px] font-extrabold px-1.5 py-0.5 rounded bg-amber-500/10 text-amber-300 border border-amber-500/30 shadow-inner">
+                SEARCH
+              </span>
             </div>
             <div>
-              <div className="title">System Notices</div>
-              <div className="sub">Match alerts & bullet</div>
+              <div className="text-xs font-bold text-white">Google Scout</div>
+              <div className="text-[10px] text-slate-400 mt-0.5 line-clamp-1">Live web scout</div>
             </div>
-          </div>
-
-          {/* 12. Google Scout Modal */}
-          <div className="hub-card" onClick={() => setIsSearchOpen(true)}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%', alignItems: 'center' }}>
-              <svg className="card-icon-svg" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
-                <circle cx="11" cy="11" r="8" />
-                <line x1="21" y1="21" x2="16.65" y2="16.65" />
-              </svg>
-              <span style={{ fontSize: '9px', fontWeight: 800, padding: '2px 6px', borderRadius: '4px', background: 'rgba(59, 130, 246, 0.15)', color: '#60a5fa', border: '1px solid rgba(59, 130, 246, 0.3)' }}>SEARCH</span>
-            </div>
-            <div>
-              <div className="title">Google Scout</div>
-              <div className="sub">Live web & intel search</div>
-            </div>
-          </div>
+          </PhysicalCard>
         </div>
 
         {/* RECHARTS / D3 PERFORMANCE ANALYTICS & WIN-LOSS RATIO VISUALIZATION */}
@@ -1399,12 +1505,16 @@ export default function Dashboard() {
         {/* MAIN SUMMARY SECTION GRID */}
         <div className="main-content-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '20px' }}>
           
-          {/* COLUMN 1: TOP 3 MATCH SUMMARY CARDS */}
+          {/* COLUMN 1: TOP 3 MATCH SUMMARY CARDS - PHYSICAL CHASSIS */}
           <div className="match-col" style={{ gridColumn: 'span 2', display: 'flex', flexDirection: 'column', gap: '20px' }}>
-            <div className="pro-card">
-              <div style={{ marginBottom: '16px' }}>
-                <h3 style={{ fontSize: '15px', fontWeight: 800 }}>⚡ TOP 3 MATCH PREDICTIONS</h3>
-                <span style={{ fontSize: '10px', color: 'var(--muted)' }}>Showing immediate summary matches</span>
+            <MaterialPanel texture="machined" withHeaderPlate={false} className="p-5">
+              <div className="mb-4">
+                <EngravedPlaque 
+                  title="TOP 3 MATCH PREDICTIONS" 
+                  subtitle="Immediate manufactured odds & verified AI intelligence"
+                  variant="gold"
+                  size="sm"
+                />
               </div>
 
               {/* TOP 3 MATCH CARDS ONLY */}
@@ -1415,54 +1525,57 @@ export default function Dashboard() {
                   </div>
                 ) : (
                   getFilteredMatches().slice(0, 3).map(match => (
-                    <div key={match.id} style={{ background: '#0a1422', border: '1px solid var(--border)', borderRadius: '12px', padding: '16px' }}>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '11px', color: 'var(--muted)' }}>
-                        <span style={{ color: 'var(--green)', fontWeight: 700 }}>{match.league || 'LEAGUE'}</span>
-                        <span>{match.match_date} • {match.match_time}</span>
+                    <PhysicalCard key={match.id} variant="obsidian" withSpecularEdge={true} className="p-4">
+                      <div className="flex justify-between items-center text-xs text-slate-400 mb-2">
+                        <span className="text-amber-400 font-extrabold tracking-wider uppercase">{match.league || 'LEAGUE'}</span>
+                        <span className="font-mono tabular-nums text-slate-400">{match.match_date} • {match.match_time}</span>
                       </div>
                       
                       <h3 
                         style={{ fontSize: '16px', fontWeight: 800, margin: '8px 0', cursor: 'pointer' }} 
                         title="Click to search on Google"
                         onClick={() => openGoogleScout(match.teams + ' match intelligence ' + (match.league || ''))}
-                        className="hover:text-emerald-400 transition-colors inline-flex items-center gap-1.5"
+                        className="hover:text-amber-300 transition-colors inline-flex items-center gap-1.5 text-white"
                       >
                         <span>{match.teams}</span>
-                        <Search className="w-3.5 h-3.5 text-cyan-400 opacity-75" />
+                        <Search className="w-3.5 h-3.5 text-amber-400 opacity-80" />
                       </h3>
 
-                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '12px', background: '#101d2e', padding: '8px 12px', borderRadius: '8px' }}>
-                        <span>Prediction: <strong>{match.prediction}</strong></span>
-                        <span style={{ color: 'var(--amber)', fontWeight: 700 }}>Odds: {formatOdds(match.decimal_odds)}</span>
+                      {/* Recessed Inset Bay for Odds & Prediction */}
+                      <div className="flex justify-between items-center text-xs p-3 rounded-xl bg-[#060912] border border-[#1e293b] shadow-[inset_0_2px_4px_rgba(0,0,0,0.9)] my-3">
+                        <span className="text-slate-200">Prediction: <strong className="text-amber-300 font-bold ml-1">{match.prediction}</strong></span>
+                        <span className="text-amber-400 font-extrabold tracking-tight px-2 py-0.5 rounded bg-amber-500/10 border border-amber-500/30">
+                          Odds: {formatOdds(match.decimal_odds)}
+                        </span>
                       </div>
 
                       {/* Probability Distribution */}
-                      <div style={{ marginTop: '10px' }}>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '10px', color: 'var(--muted)', marginBottom: '4px' }}>
-                          <span>Probability</span>
-                          <span>H: {match.prob_home}% | D: {match.prob_draw}% | A: {match.prob_away}%</span>
+                      <div className="mt-3">
+                        <div className="flex justify-between text-[11px] text-slate-400 mb-1.5 font-medium">
+                          <span>Win Probability Distribution</span>
+                          <span className="font-mono tabular-nums text-slate-300">H: {match.prob_home}% | D: {match.prob_draw}% | A: {match.prob_away}%</span>
                         </div>
                         <div className="water-progress-container">
                           <div className="water-progress-bar" style={{ width: `${match.prob_home}%` }} />
                         </div>
                       </div>
 
-                      {/* Card Actions */}
-                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '12px', paddingTop: '10px', borderTop: '1px solid var(--border)' }}>
-                        <div style={{ display: 'flex', gap: '8px' }}>
-                          <button className="btn-outline" onClick={() => reactToMatch(match.id, 'fire')}>🔥 {match.reactions?.fire || 0}</button>
-                          <button className="btn-outline" onClick={() => reactToMatch(match.id, 'heart')}>❤️ {match.reactions?.heart || 0}</button>
+                      {/* Card Actions - Tactile Triggers */}
+                      <div className="flex justify-between items-center mt-3 pt-3 border-t border-[#1e293b]">
+                        <div className="flex gap-2">
+                          <button className="btn-secondary !text-xs !py-1.5 !px-2.5" onClick={() => reactToMatch(match.id, 'fire')}>🔥 {match.reactions?.fire || 0}</button>
+                          <button className="btn-secondary !text-xs !py-1.5 !px-2.5" onClick={() => reactToMatch(match.id, 'heart')}>❤️ {match.reactions?.heart || 0}</button>
                         </div>
 
-                        <div style={{ display: 'flex', gap: '6px' }}>
-                          <button className="btn-outline" onClick={() => setActiveCommentMatch(match)}>💬 Comments ({(matchCommentsStore[match.id] || []).length})</button>
-                          <button className="btn-cyber" onClick={() => setActiveMatchDetail(match)}>Details</button>
+                        <div className="flex gap-2">
+                          <button className="btn-secondary !text-xs !py-1.5 !px-2.5" onClick={() => setActiveCommentMatch(match)}>💬 Comments ({(matchCommentsStore[match.id] || []).length})</button>
+                          <TactileButton variant="emerald" size="sm" onClick={() => setActiveMatchDetail(match)}>Details</TactileButton>
                           {isAdmin && (
-                            <button className="btn-outline" style={{ color: 'var(--red)' }} onClick={() => deleteRecord('matches', match.id)}>Delete</button>
+                            <button className="btn-secondary !text-xs !py-1.5 !px-2.5 !text-red-400 hover:!border-red-500" onClick={() => deleteRecord('matches', match.id)}>Delete</button>
                           )}
                         </div>
                       </div>
-                    </div>
+                    </PhysicalCard>
                   ))
                 )}
               </div>
@@ -1471,17 +1584,21 @@ export default function Dashboard() {
               <button className="see-more-btn" onClick={() => navigateTo('predictions')}>
                 View All Predictions Page →
               </button>
-            </div>
+            </MaterialPanel>
           </div>
 
-          {/* COLUMN 2: 4 FIXTURES & 4 TRENDING NEWS */}
+          {/* COLUMN 2: 4 FIXTURES & 4 TRENDING NEWS - PHYSICAL PANELS */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
             
-            {/* 4 FIXTURES SUMMARY CONTAINER WITH UPDATED TITLE */}
-            <div className="pro-card">
-              <div style={{ marginBottom: '12px' }}>
-                <h3 style={{ fontSize: '14px', fontWeight: 800 }}>📅 FIXTURES GOOGLE SEARCH (4)</h3>
-                <span style={{ fontSize: '10px', color: 'var(--muted)' }}>Upcoming football match schedule</span>
+            {/* 4 FIXTURES SUMMARY CONTAINER - PHYSICAL PANEL */}
+            <MaterialPanel texture="machined" withHeaderPlate={false} className="p-4 sm:p-5">
+              <div className="mb-3">
+                <EngravedPlaque 
+                  title="FIXTURES SCOUT (4)" 
+                  subtitle="Upcoming kickoff schedule"
+                  variant="titanium"
+                  size="sm"
+                />
               </div>
 
               <div style={{ flex: 1 }}>
@@ -1489,29 +1606,26 @@ export default function Dashboard() {
                   <div style={{ fontSize: '11px', color: 'var(--muted)', textAlign: 'center', padding: '12px' }}>No upcoming fixtures.</div>
                 ) : (
                   fixturesData.slice(0, 4).map(fix => (
-                    <div key={fix.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: '#0a1422', padding: '10px', borderRadius: '10px', marginBottom: '8px', border: '1px solid var(--border)' }}>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                        <div style={{ width: '28px', height: '28px', background: '#101d2e', borderRadius: '6px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '10px', fontWeight: 800, color: 'var(--green)' }}>
-                          {fix.badge}
-                        </div>
-                        <div>
+                    <PhysicalCard key={fix.id} variant="obsidian" interactive={true} className="p-2.5 mb-2 flex items-center justify-between">
+                      <div className="flex items-center gap-2.5 min-w-0">
+                        <EmbossedIcon mount="gold" size="sm" icon={<span className="font-extrabold text-[10px]">{fix.badge || '⚽'}</span>} />
+                        <div className="min-w-0">
                           <div 
-                            style={{ fontSize: '12px', fontWeight: 700, cursor: 'pointer' }}
                             title="Click to search on Google"
                             onClick={() => openGoogleScout(fix.teams + ' ' + (fix.league || '') + ' fixture schedule')}
-                            className="hover:text-emerald-400 transition-colors inline-flex items-center gap-1.5"
+                            className="text-xs font-bold text-white hover:text-amber-300 transition-colors inline-flex items-center gap-1.5 cursor-pointer truncate"
                           >
-                            <span>{fix.teams}</span>
-                            <Search className="w-3 h-3 text-cyan-400 opacity-70" />
+                            <span className="truncate">{fix.teams}</span>
+                            <Search className="w-3 h-3 text-amber-400 opacity-70 shrink-0" />
                           </div>
-                          <div style={{ fontSize: '10px', color: 'var(--muted)' }}>{fix.league}</div>
+                          <div className="text-[10px] text-slate-400 font-medium truncate">{fix.league}</div>
                         </div>
                       </div>
-                      <div style={{ textAlign: 'right' }}>
-                        <div style={{ fontSize: '11px', color: 'var(--green)', fontWeight: 700 }}>{fix.match_time}</div>
-                        <div style={{ fontSize: '9px', color: 'var(--muted)' }}>{fix.match_date}</div>
+                      <div className="text-right shrink-0 pl-2">
+                        <div className="text-xs text-amber-400 font-bold font-mono tabular-nums">{fix.match_time}</div>
+                        <div className="text-[10px] text-slate-400 font-medium">{fix.match_date}</div>
                       </div>
-                    </div>
+                    </PhysicalCard>
                   ))
                 )}
               </div>
@@ -1520,13 +1634,17 @@ export default function Dashboard() {
               <button className="see-more-btn" onClick={() => navigateTo('fixtures')}>
                 See More Fixtures →
               </button>
-            </div>
+            </MaterialPanel>
 
-            {/* 4 TRENDING NEWS CONTAINER */}
-            <div className="pro-card">
-              <div style={{ marginBottom: '12px' }}>
-                <h3 style={{ fontSize: '14px', fontWeight: 800 }}>🔥 TRENDING NEWS (4)</h3>
-                <span style={{ fontSize: '10px', color: 'var(--muted)' }}>Top football stories and transfers</span>
+            {/* 4 TRENDING NEWS CONTAINER - PHYSICAL PANEL */}
+            <MaterialPanel texture="machined" withHeaderPlate={false} className="p-4 sm:p-5">
+              <div className="mb-3">
+                <EngravedPlaque 
+                  title="TRENDING INTEL (4)" 
+                  subtitle="Verified club & transfer stories"
+                  variant="gold"
+                  size="sm"
+                />
               </div>
 
               <div style={{ flex: 1 }}>
@@ -1534,21 +1652,22 @@ export default function Dashboard() {
                   <div style={{ fontSize: '11px', color: 'var(--muted)', textAlign: 'center', padding: '12px' }}>No trending stories.</div>
                 ) : (
                   trendingData.slice(0, 4).map(news => (
-                    <div key={news.id} style={{ display: 'flex', alignItems: 'center', gap: '10px', background: '#0a1422', padding: '10px', borderRadius: '10px', marginBottom: '8px', border: '1px solid var(--border)' }}>
-                      <span style={{ fontSize: '12px', fontWeight: 800, color: 'var(--green)' }}>#{news.rank}</span>
-                      <div style={{ flex: 1 }}>
+                    <PhysicalCard key={news.id} variant="obsidian" interactive={true} className="p-2.5 mb-2 flex items-center gap-2.5">
+                      <div className="w-6 h-6 rounded-lg bg-[#070b14] border border-[#1e293b] flex items-center justify-center text-xs font-black text-amber-400 shrink-0 shadow-inner">
+                        #{news.rank}
+                      </div>
+                      <div className="min-w-0 flex-1">
                         <div 
-                          style={{ fontSize: '12px', fontWeight: 700, cursor: 'pointer' }} 
                           title="Click to search on Google"
                           onClick={() => openGoogleScout(news.title, 'news')}
-                          className="hover:text-emerald-400 transition-colors inline-flex items-center gap-1.5"
+                          className="text-xs font-bold text-white hover:text-amber-300 transition-colors inline-flex items-center gap-1.5 cursor-pointer truncate"
                         >
-                          <span>{news.title}</span>
-                          <Search className="w-3 h-3 text-cyan-400 opacity-70" />
+                          <span className="truncate">{news.title}</span>
+                          <Search className="w-3 h-3 text-amber-400 opacity-70 shrink-0" />
                         </div>
-                        <div style={{ fontSize: '10px', color: 'var(--muted)' }}>💬 {news.comments_count} interactions</div>
+                        <div className="text-[10px] text-slate-400 font-medium mt-0.5">💬 {news.comments_count} interactions</div>
                       </div>
-                    </div>
+                    </PhysicalCard>
                   ))
                 )}
               </div>
@@ -1557,7 +1676,7 @@ export default function Dashboard() {
               <button className="see-more-btn" onClick={() => navigateTo('news')}>
                 See More News →
               </button>
-            </div>
+            </MaterialPanel>
 
           </div>
         </div>

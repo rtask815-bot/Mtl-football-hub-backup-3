@@ -31,6 +31,7 @@ import StickyHeader from "./components/StickyHeader.tsx";
 import OfflineIndicator from "./components/OfflineIndicator.tsx";
 import FloatingBackButton from "./components/FloatingBackButton.tsx";
 import { ThemeProvider } from "./context/ThemeContext.tsx";
+import { SpotlightProvider } from "./components/physical/SpotlightProvider.tsx";
 export { supabase };
 
 // Fast Global Auth Context for zero-latency page transitions
@@ -266,44 +267,46 @@ export default function App() {
     return (
         <ThemeProvider>
             <AuthSessionProvider>
-                <BrowserRouter>
-                    <SecurityHeadManager />
-                    <StickyHeader />
-                    <OfflineIndicator />
-                    <FloatingBackButton />
-                    <MainContentWrapper>
-                        <Routes>
-                            {/* Public Routes */}
-                            <Route path="/" element={<Gateway />} />
-                            <Route path="/auth" element={<Auth />} />
+                <SpotlightProvider>
+                    <BrowserRouter>
+                        <SecurityHeadManager />
+                        <StickyHeader />
+                        <OfflineIndicator />
+                        <FloatingBackButton />
+                        <MainContentWrapper>
+                            <Routes>
+                                {/* Public Routes */}
+                                <Route path="/" element={<Gateway />} />
+                                <Route path="/auth" element={<Auth />} />
 
-                            {/* Protected Core Dashboard Routes */}
-                            <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
-                            <Route path="/profile" element={<ProtectedRoute><UserProfile /></ProtectedRoute>} />
+                                {/* Protected Core Dashboard Routes */}
+                                <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+                                <Route path="/profile" element={<ProtectedRoute><UserProfile /></ProtectedRoute>} />
 
-                            {/* Feature Modules */}
-                            <Route path="/group-chats" element={<ProtectedRoute><GroupChats /></ProtectedRoute>} />
-                            <Route path="/tv" element={<ProtectedRoute><Tv /></ProtectedRoute>} />
-                            <Route path="/past-predictions" element={<ProtectedRoute><PastPredictions /></ProtectedRoute>} />
-                            <Route path="/predictions" element={<ProtectedRoute><Predictions /></ProtectedRoute>} />
-                            <Route path="/ai-predictions" element={<ProtectedRoute><Aipredictions /></ProtectedRoute>} />
-                            <Route path="/fixtures" element={<ProtectedRoute><Fixtures /></ProtectedRoute>} />
-                            <Route path="/live" element={<ProtectedRoute><Live /></ProtectedRoute>} />
-                            <Route path="/clubs" element={<ProtectedRoute><Clubs /></ProtectedRoute>} />
-                            <Route path="/other-apps" element={<ProtectedRoute><Clubs /></ProtectedRoute>} />
-                            <Route path="/notifications" element={<ProtectedRoute><Notifications /></ProtectedRoute>} />
-                            <Route path="/trending" element={<ProtectedRoute><Trending /></ProtectedRoute>} />
-                            <Route path="/news" element={<ProtectedRoute><News /></ProtectedRoute>} />
-                            <Route path="/engagement" element={<ProtectedRoute><Engagement /></ProtectedRoute>} />
-                            <Route path="/activity" element={<ProtectedRoute><Engagement /></ProtectedRoute>} />
-                            <Route path="/admin" element={<AdminRoute><AdminControlPanel /></AdminRoute>} />
-                            <Route path="/admin-control-panel" element={<AdminRoute><AdminControlPanel /></AdminRoute>} />
+                                {/* Feature Modules */}
+                                <Route path="/group-chats" element={<ProtectedRoute><GroupChats /></ProtectedRoute>} />
+                                <Route path="/tv" element={<ProtectedRoute><Tv /></ProtectedRoute>} />
+                                <Route path="/past-predictions" element={<ProtectedRoute><PastPredictions /></ProtectedRoute>} />
+                                <Route path="/predictions" element={<ProtectedRoute><Predictions /></ProtectedRoute>} />
+                                <Route path="/ai-predictions" element={<ProtectedRoute><Aipredictions /></ProtectedRoute>} />
+                                <Route path="/fixtures" element={<ProtectedRoute><Fixtures /></ProtectedRoute>} />
+                                <Route path="/live" element={<ProtectedRoute><Live /></ProtectedRoute>} />
+                                <Route path="/clubs" element={<ProtectedRoute><Clubs /></ProtectedRoute>} />
+                                <Route path="/other-apps" element={<ProtectedRoute><Clubs /></ProtectedRoute>} />
+                                <Route path="/notifications" element={<ProtectedRoute><Notifications /></ProtectedRoute>} />
+                                <Route path="/trending" element={<ProtectedRoute><Trending /></ProtectedRoute>} />
+                                <Route path="/news" element={<ProtectedRoute><News /></ProtectedRoute>} />
+                                <Route path="/engagement" element={<ProtectedRoute><Engagement /></ProtectedRoute>} />
+                                <Route path="/activity" element={<ProtectedRoute><Engagement /></ProtectedRoute>} />
+                                <Route path="/admin" element={<AdminRoute><AdminControlPanel /></AdminRoute>} />
+                                <Route path="/admin-control-panel" element={<AdminRoute><AdminControlPanel /></AdminRoute>} />
 
-                            {/* Fallback Redirect */}
-                            <Route path="*" element={<Navigate to="/" replace />} />
-                        </Routes>
-                    </MainContentWrapper>
-                </BrowserRouter>
+                                {/* Fallback Redirect */}
+                                <Route path="*" element={<Navigate to="/" replace />} />
+                            </Routes>
+                        </MainContentWrapper>
+                    </BrowserRouter>
+                </SpotlightProvider>
             </AuthSessionProvider>
         </ThemeProvider>
     );

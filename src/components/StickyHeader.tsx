@@ -158,22 +158,19 @@ export const StickyHeader: React.FC = () => {
         {/* Fixed 64px Height Main Navigation Bar */}
         <div className="h-16 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
           
-          {/* Brand Logo & Title */}
+          {/* Brand Logo & Title - Physical Embossed Plaque */}
           <div className="flex items-center gap-3">
             <Link
               to={userEmail ? '/dashboard' : '/'}
-              className="group flex items-center gap-2.5 text-decoration-none focus:outline-none focus:ring-2 focus:ring-emerald-500 rounded-lg p-1 transition-transform"
+              className="group flex items-center gap-2.5 text-decoration-none focus:outline-none focus:ring-2 focus:ring-amber-500/50 rounded-xl p-1 transition-transform"
             >
-              <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-emerald-600 to-teal-400 flex items-center justify-center text-slate-950 font-extrabold shadow-md shadow-emerald-950/50 group-hover:scale-105 transition-transform">
-                <span className="text-sm font-black tracking-tight">MTL</span>
+              <div className="w-9 h-9 rounded-xl bg-gradient-to-b from-[#2a1d08] via-[#1a1205] to-[#0a0702] border border-amber-500/50 flex items-center justify-center text-amber-400 font-extrabold shadow-[0_1px_0_rgba(251,191,36,0.3)_inset,0_3px_8px_rgba(0,0,0,0.8)] group-hover:scale-105 transition-transform">
+                <span className="text-xs font-black tracking-wider">MTL</span>
               </div>
               <div className="flex flex-col">
-                <div className="flex items-center gap-1.5">
-                  <span className="font-extrabold text-base sm:text-lg tracking-tight text-white group-hover:text-emerald-400 transition-colors">
-                    FOOTBALL HUB
-                  </span>
-                  <span className="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                </div>
+                <span className="font-extrabold text-base tracking-tight text-white group-hover:text-amber-400 transition-colors">
+                  FOOTBALL HUB
+                </span>
                 <span className="text-[10px] text-slate-400 font-semibold tracking-wider uppercase -mt-0.5 hidden sm:block">
                   Match Intelligence & Live TV
                 </span>
@@ -181,9 +178,9 @@ export const StickyHeader: React.FC = () => {
             </Link>
           </div>
 
-          {/* Desktop Navigation Links */}
+          {/* Desktop Navigation Links - Recessed Physical Tray */}
           {!isAuth && !isGateway && (
-            <nav className="hidden lg:flex items-center gap-1 bg-slate-900/60 p-1 rounded-xl border border-slate-800/70">
+            <nav className="hidden lg:flex items-center gap-1.5 bg-[#060912] p-1.5 rounded-xl border border-[#1e293b] shadow-[inset_0_2px_4px_rgba(0,0,0,0.9),0_1px_0_rgba(255,255,255,0.06)]">
               {NAV_ITEMS.map((item) => {
                 const Icon = item.icon;
                 const active = isCurrentActive(item.path);
@@ -191,17 +188,17 @@ export const StickyHeader: React.FC = () => {
                   <Link
                     key={item.path}
                     to={item.path}
-                    className={`relative flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all duration-200 text-decoration-none ${
+                    className={`relative flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all duration-150 text-decoration-none select-none ${
                       active
-                        ? 'bg-emerald-500 text-slate-950 shadow-md shadow-emerald-500/20'
-                        : 'text-slate-300 hover:text-white hover:bg-slate-800/80'
+                        ? 'bg-gradient-to-b from-[#1e293b] to-[#0f172a] text-amber-300 border border-amber-500/40 shadow-[0_1px_0_rgba(251,191,36,0.25)_inset,0_2px_6px_rgba(0,0,0,0.8)]'
+                        : 'text-slate-400 hover:text-slate-200 hover:bg-[#0c1220]'
                     }`}
                   >
-                    <Icon className={`w-3.5 h-3.5 ${active ? 'text-slate-950' : 'text-slate-400'}`} />
+                    <Icon className={`w-3.5 h-3.5 ${active ? 'text-amber-400' : 'text-slate-400'}`} />
                     <span>{item.name}</span>
                     {item.badge && (
                       <span className={`text-[9px] px-1 py-0.2 rounded font-extrabold tracking-wider ${
-                        active ? 'bg-slate-950 text-emerald-400' : 'bg-red-500 text-white animate-pulse'
+                        active ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30' : 'bg-red-500/80 text-white'
                       }`}>
                         {item.badge}
                       </span>
@@ -212,23 +209,23 @@ export const StickyHeader: React.FC = () => {
             </nav>
           )}
 
-          {/* Right Action Icons & Profile */}
+          {/* Right Action Icons & Profile - Machined Physical Controls */}
           <div className="flex items-center gap-2">
-            {/* Theme Toggle Button (Midnight vs High-Contrast Day) */}
+            {/* Theme Toggle Button */}
             <button
               onClick={toggleTheme}
               aria-label={`Switch to ${isDay ? 'Midnight' : 'Day'} mode`}
               title={`Switch to ${isDay ? 'Midnight' : 'High-Contrast Day'} mode`}
-              className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-slate-900/90 border border-slate-800 hover:border-slate-700 text-slate-300 hover:text-white transition-colors cursor-pointer text-xs font-semibold shadow-inner"
+              className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-gradient-to-b from-[#1e293b] to-[#0f172a] border border-[#334155] hover:border-[#475569] text-slate-300 hover:text-white transition-all cursor-pointer text-xs font-semibold shadow-[0_1px_0_rgba(255,255,255,0.1)_inset,0_2px_4px_rgba(0,0,0,0.6)] active:translate-y-[1px]"
             >
               {isDay ? (
                 <>
-                  <Sun className="w-3.5 h-3.5 text-amber-500 animate-in spin-in-180 duration-300" />
+                  <Sun className="w-3.5 h-3.5 text-amber-500" />
                   <span className="hidden sm:inline text-[11px] font-bold text-amber-500">Day</span>
                 </>
               ) : (
                 <>
-                  <Moon className="w-3.5 h-3.5 text-cyan-400 animate-in zoom-in-75 duration-300" />
+                  <Moon className="w-3.5 h-3.5 text-cyan-400" />
                   <span className="hidden sm:inline text-[11px] font-bold text-slate-300">Midnight</span>
                 </>
               )}
@@ -238,11 +235,11 @@ export const StickyHeader: React.FC = () => {
             <button
               onClick={() => setIsSearchOpen(true)}
               aria-label="Quick Search"
-              className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-900/90 border border-slate-800 hover:border-slate-700 text-slate-300 hover:text-white transition-colors cursor-pointer text-xs font-semibold shadow-inner"
+              className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-gradient-to-b from-[#1e293b] to-[#0f172a] border border-[#334155] hover:border-amber-500/40 text-slate-300 hover:text-white transition-all cursor-pointer text-xs font-semibold shadow-[0_1px_0_rgba(255,255,255,0.1)_inset,0_2px_4px_rgba(0,0,0,0.6)] active:translate-y-[1px]"
             >
-              <Search className="w-3.5 h-3.5 text-emerald-400" />
-              <span className="hidden md:inline text-slate-400">Search matches, scores & intelligence...</span>
-              <kbd className="hidden md:inline-block px-1.5 py-0.5 text-[9px] font-bold bg-slate-800 border border-slate-700 rounded text-slate-400">
+              <Search className="w-3.5 h-3.5 text-amber-400" />
+              <span className="hidden md:inline text-slate-400">Search matches & intelligence...</span>
+              <kbd className="hidden md:inline-block px-1.5 py-0.5 text-[9px] font-bold bg-[#090d18] border border-slate-700 rounded text-slate-400 shadow-inner">
                 ⌘K
               </kbd>
             </button>
@@ -252,11 +249,11 @@ export const StickyHeader: React.FC = () => {
               <div className="relative">
                 <button
                   onClick={() => setIsUserMenuOpen(prev => !prev)}
-                  className="flex items-center gap-2 p-1.5 rounded-xl bg-slate-900 border border-slate-800 hover:border-slate-700 transition-all cursor-pointer"
+                  className="flex items-center gap-2 p-1 rounded-xl bg-gradient-to-b from-[#1e293b] to-[#0f172a] border border-[#334155] hover:border-amber-500/40 shadow-[0_1px_0_rgba(255,255,255,0.1)_inset,0_2px_4px_rgba(0,0,0,0.6)] transition-all cursor-pointer active:translate-y-[1px]"
                   aria-expanded={isUserMenuOpen}
                   title={userEmail}
                 >
-                  <div className="w-7 h-7 rounded-lg bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400 font-bold text-xs">
+                  <div className="w-7 h-7 rounded-lg bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-amber-300 font-bold text-xs shadow-inner">
                     {userEmail.charAt(0).toUpperCase()}
                   </div>
                 </button>

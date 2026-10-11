@@ -24,6 +24,13 @@ import {
   Cpu
 } from 'lucide-react';
 import FloatingBackButton from '../components/FloatingBackButton.tsx';
+import { 
+  PhysicalCard, 
+  TactileButton, 
+  EmbossedIcon, 
+  EngravedPlaque, 
+  PhysicalOptionGrid 
+} from '../components/physical/index.ts';
 
 export default function TvPage() {
   const navigate = useNavigate();
@@ -109,33 +116,34 @@ export default function TvPage() {
       {/* ------------------------------------------------------------- */}
       {/* 1. OUR CUSTOM MTL TV TITLE BAR (COVERS & HIDES FAMELACK TITLE) */}
       {/* ------------------------------------------------------------- */}
-      <div 
-        className={`fixed top-0 inset-x-0 h-14 bg-[#0a0f1d]/95 backdrop-blur-md border-b border-emerald-500/25 z-40 transition-transform duration-300 flex items-center justify-between px-3 sm:px-5 shadow-2xl ${
+      <header 
+        className={`fixed top-0 inset-x-0 h-14 bg-[#080d17]/95 backdrop-blur-md border-b border-[#1e293b] z-40 transition-transform duration-300 flex items-center justify-between px-3 sm:px-5 shadow-[0_1px_0_rgba(255,255,255,0.08)_inset,0_8px_30px_rgba(0,0,0,0.85)] ${
           showTitleBar ? 'translate-y-0' : '-translate-y-full'
         }`}
       >
+        {/* Precision Milled Top Chamfer Highlight */}
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-[1.5px] bg-gradient-to-r from-transparent via-white/20 to-transparent" aria-hidden="true" />
+
         {/* Left: Branding & Status */}
         <div className="flex items-center gap-3">
           <button
             onClick={() => navigate('/dashboard')}
-            className="flex items-center gap-1.5 p-1.5 sm:px-2.5 sm:py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-700/80 transition-colors cursor-pointer text-xs font-bold"
+            className="flex items-center gap-1.5 p-1.5 sm:px-2.5 sm:py-1.5 rounded-xl bg-gradient-to-b from-[#1e293b] to-[#0f172a] hover:border-amber-500/40 text-slate-200 border border-[#334155] shadow-[0_1px_0_rgba(255,255,255,0.1)_inset,0_2px_4px_rgba(0,0,0,0.6)] transition-all cursor-pointer text-xs font-bold active:translate-y-[1px]"
             title="Back to Dashboard"
           >
-            <ChevronLeft className="w-4 h-4 text-emerald-400" />
+            <ChevronLeft className="w-4 h-4 text-amber-400" />
             <span className="hidden sm:inline">Hub</span>
           </button>
 
-          <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-emerald-500 via-teal-400 to-cyan-500 flex items-center justify-center text-slate-950 font-black shadow-lg shadow-emerald-500/30">
-            <Tv className="w-4 h-4" />
-          </div>
+          <EmbossedIcon mount="gold" size="sm" icon={<Tv className="w-4 h-4 text-amber-400" />} />
 
           <div>
             <div className="flex items-center gap-2">
-              <h1 className="text-xs sm:text-sm font-black font-['Orbitron'] text-white tracking-wider flex items-center gap-1.5">
+              <h1 className="text-xs sm:text-sm font-black text-white tracking-wider flex items-center gap-1.5">
                 <span>MTL FOOTBALL TV</span>
-                <span className="text-[10px] text-emerald-400 font-mono hidden md:inline">• ULTRA HD</span>
+                <span className="text-[10px] text-amber-400 font-mono hidden md:inline">• ULTRA HD</span>
               </h1>
-              <span className="flex items-center gap-1 px-2 py-0.5 rounded-full bg-red-500/20 border border-red-500/40 text-red-400 text-[9px] font-extrabold uppercase animate-pulse">
+              <span className="flex items-center gap-1 px-2 py-0.5 rounded bg-[#070b14] border border-red-500/50 text-red-400 text-[9px] font-extrabold uppercase shadow-inner">
                 <span className="w-1.5 h-1.5 rounded-full bg-red-500" />
                 LIVE
               </span>
@@ -146,49 +154,24 @@ export default function TvPage() {
           </div>
         </div>
 
-        {/* Center: Quick Famelack Stream Mode Switcher */}
-        <div className="flex items-center gap-1 bg-slate-950/80 p-1 rounded-xl border border-slate-800 text-xs">
-          <button
-            onClick={() => handleModeChange('tv')}
-            className={`flex items-center gap-1 px-2.5 py-1 rounded-lg font-bold transition-all ${
-              streamMode === 'tv'
-                ? 'bg-emerald-500 text-slate-950 font-black shadow-md'
-                : 'text-slate-400 hover:text-white'
-            }`}
-          >
-            <Tv className="w-3.5 h-3.5" />
-            <span className="hidden md:inline">Live TV</span>
-          </button>
-          
-          <button
-            onClick={() => handleModeChange('globe')}
-            className={`flex items-center gap-1 px-2.5 py-1 rounded-lg font-bold transition-all ${
-              streamMode === 'globe'
-                ? 'bg-cyan-500 text-slate-950 font-black shadow-md'
-                : 'text-slate-400 hover:text-white'
-            }`}
-          >
-            <Globe className="w-3.5 h-3.5" />
-            <span className="hidden md:inline">3D Globe</span>
-          </button>
-
-          <button
-            onClick={() => handleModeChange('radio')}
-            className={`flex items-center gap-1 px-2.5 py-1 rounded-lg font-bold transition-all ${
-              streamMode === 'radio'
-                ? 'bg-amber-500 text-slate-950 font-black shadow-md'
-                : 'text-slate-400 hover:text-white'
-            }`}
-          >
-            <Radio className="w-3.5 h-3.5" />
-            <span className="hidden md:inline">Radio</span>
-          </button>
+        {/* Center: Physical Segmented Option Selector */}
+        <div className="hidden sm:block">
+          <PhysicalOptionGrid
+            layout="segmented"
+            value={streamMode}
+            onChange={(val) => handleModeChange(val)}
+            options={[
+              { id: 'tv', label: 'Live TV', icon: <Tv className="w-3.5 h-3.5" /> },
+              { id: 'globe', label: '3D Globe', icon: <Globe className="w-3.5 h-3.5" /> },
+              { id: 'radio', label: 'Radio', icon: <Radio className="w-3.5 h-3.5" /> },
+            ]}
+          />
         </div>
 
         {/* Right: Quick Tools */}
         <div className="flex items-center gap-2">
           {/* Latency Pill */}
-          <div className="hidden lg:flex items-center gap-1 px-2.5 py-1 rounded-lg bg-slate-900 border border-slate-800 text-[10px] font-mono text-emerald-400">
+          <div className="hidden lg:flex items-center gap-1 px-2.5 py-1 rounded-lg bg-[#070b14] border border-[#1e293b] text-[10px] font-mono text-emerald-400 shadow-inner">
             <Wifi className="w-3 h-3" />
             <span>{ping}ms</span>
           </div>
@@ -196,28 +179,28 @@ export default function TvPage() {
           {/* Reload Stream */}
           <button
             onClick={reloadStream}
-            className="p-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-700/80 transition-colors"
+            className="p-2 rounded-xl bg-gradient-to-b from-[#1e293b] to-[#0f172a] hover:border-amber-500/40 text-slate-300 hover:text-white border border-[#334155] shadow-[0_1px_0_rgba(255,255,255,0.1)_inset,0_2px_4px_rgba(0,0,0,0.6)] transition-all cursor-pointer active:translate-y-[1px]"
             title="Reload Broadcast Stream"
           >
-            <RefreshCw className={`w-3.5 h-3.5 text-cyan-400 ${isLoading ? 'animate-spin' : ''}`} />
+            <RefreshCw className={`w-3.5 h-3.5 text-amber-400 ${isLoading ? 'animate-spin' : ''}`} />
           </button>
 
           {/* Audio Unmute Tip Button */}
           <button
             onClick={() => setShowInfoModal(true)}
-            className="p-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-700/80 transition-colors"
+            className="p-2 rounded-xl bg-gradient-to-b from-[#1e293b] to-[#0f172a] hover:border-amber-500/40 text-slate-300 hover:text-white border border-[#334155] shadow-[0_1px_0_rgba(255,255,255,0.1)_inset,0_2px_4px_rgba(0,0,0,0.6)] transition-all cursor-pointer active:translate-y-[1px]"
             title="Stream Guide & Audio Tips"
           >
-            <Volume2 className="w-3.5 h-3.5 text-emerald-400" />
+            <Volume2 className="w-3.5 h-3.5 text-amber-400" />
           </button>
 
           {/* Browser Native Fullscreen */}
           <button
             onClick={toggleNativeFullscreen}
-            className="p-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-700/80 transition-colors"
+            className="p-2 rounded-xl bg-gradient-to-b from-[#1e293b] to-[#0f172a] hover:border-amber-500/40 text-slate-300 hover:text-white border border-[#334155] shadow-[0_1px_0_rgba(255,255,255,0.1)_inset,0_2px_4px_rgba(0,0,0,0.6)] transition-all cursor-pointer active:translate-y-[1px]"
             title={isNativeFullscreen ? "Exit Fullscreen" : "Native Fullscreen"}
           >
-            {isNativeFullscreen ? <Minimize2 className="w-3.5 h-3.5 text-amber-400" /> : <Maximize2 className="w-3.5 h-3.5 text-cyan-400" />}
+            {isNativeFullscreen ? <Minimize2 className="w-3.5 h-3.5 text-amber-400" /> : <Maximize2 className="w-3.5 h-3.5 text-amber-400" />}
           </button>
 
           {/* Hide Title Bar Toggle */}
@@ -229,7 +212,7 @@ export default function TvPage() {
             <ChevronUp className="w-3.5 h-3.5" />
           </button>
         </div>
-      </div>
+      </header>
 
       {/* ------------------------------------------------------------- */}
       {/* 2. REVEAL TITLE BAR TAB (WHEN HIDDEN)                         */}

@@ -54,31 +54,33 @@ export const StatusReel: React.FC<StatusReelProps> = ({
   };
 
   return (
-    <div className="w-full bg-[#08101d] border border-slate-800/80 rounded-3xl p-4 sm:p-5 shadow-xl relative overflow-hidden">
+    <div className="w-full bg-[#080d17] border border-[#1e293b] rounded-3xl p-4 sm:p-5 shadow-[0_1px_0_rgba(255,255,255,0.08)_inset,0_-1px_0_rgba(0,0,0,0.8)_inset,0_14px_40px_rgba(0,0,0,0.9)] relative overflow-hidden">
+      {/* Precision Milled Top Chamfer */}
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-[1.5px] bg-gradient-to-r from-transparent via-white/20 to-transparent" aria-hidden="true" />
       
-      {/* Header with Title and Add Status CTA */}
-      <div className="flex items-center justify-between mb-4 pb-2 border-b border-slate-800/60">
+      {/* Header with Physical Plaque Style */}
+      <div className="flex items-center justify-between mb-4 pb-3 border-b border-[#1e293b]">
         <div className="flex items-center gap-2.5">
-          <div className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" />
-          <h3 className="text-xs sm:text-sm font-black text-white font-['Orbitron'] tracking-wider uppercase flex items-center gap-2">
+          <div className="w-2 h-2 rounded-full bg-amber-400 shadow-[0_0_8px_#f59e0b]" />
+          <h3 className="text-xs sm:text-sm font-black text-white tracking-wider uppercase flex items-center gap-2">
             <span>MATCH PREDICTION STATUSES</span>
-            <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
-              LIVE 24H
+            <span className="text-[10px] px-2 py-0.5 rounded bg-[#070b14] text-amber-300 border border-amber-500/30 shadow-inner">
+              ACTIVE 24H
             </span>
           </h3>
         </div>
 
         <button
           onClick={() => setIsCreateModalOpen(true)}
-          className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-gradient-to-r from-emerald-500 to-cyan-500 hover:from-emerald-400 hover:to-cyan-400 text-slate-950 font-black text-[11px] font-['Orbitron'] tracking-wide shadow-md shadow-emerald-950/40 transition-all cursor-pointer"
+          className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-gradient-to-b from-[#f59e0b] via-[#d97706] to-[#b45309] text-[#180d00] font-bold text-xs tracking-tight shadow-[0_1px_0_rgba(255,255,255,0.35)_inset,0_2px_0_#78350f,0_6px_16px_rgba(180,83,9,0.3)] hover:brightness-105 active:translate-y-[1px] transition-all cursor-pointer"
         >
           <Plus className="w-3.5 h-3.5" />
-          <span className="hidden sm:inline">ADD STATUS</span>
+          <span className="hidden sm:inline">POST STATUS</span>
           <span className="sm:hidden">POST</span>
         </button>
       </div>
 
-      {/* Horizontal Carousel */}
+      {/* Horizontal Carousel with Recessed Compartments */}
       <div className="flex items-center gap-4 overflow-x-auto pb-2 pt-1 scrollbar-thin">
         
         {/* MY STATUS ITEM */}
